@@ -1,0 +1,161 @@
+---
+layout: post
+---
+
+{% if page.topimage %}
+<img src="{{ page.topimage | relative_url }}" alt="{{ page.topimage_caption }}"/>
+{% endif %}
+
+<h2 class="recipe-title">{{ page.recipe.name }}</h2>
+
+<div class="recipe-grid">
+
+<div>
+    <h3>Starter</h3>
+
+    <p>{{ page.starter.hydration }}% hydration, {{ page.starter.hours_since_fed }}h since last feeding.
+
+    <table>
+    <tr>
+        <th>Flour</th>
+        <th>Percent</th>
+    </tr>
+    {% for flour in page.starter.flour %}
+    <tr>
+        <td>{{ flour.name }}</td>
+        <td>{{ flour.percent }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% if page.starter.comments %}
+    <p>{{ page.starter.comments }}</p>
+    {% endif %}
+</div>
+
+<div>
+<h3>Leaven</h3>
+
+    <table>
+    <tr>
+        <th>Ingredient</th>
+        <th>Amount</th>
+        <th>Temp (F)</th>
+    </tr>
+    {% for i in page.leaven.ingredients %}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.amount }} {{ i.unit }}</td>
+        <td>{%if i.t_f %}{{ i.t_f }}{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <ul>
+        <li>Fermentation started at {{ page.leaven.fermentation.start_time }}</li>
+        <li>Fermentation duration: {{ page.leaven.fermentation.duration }}</li>
+        <li>Ambient temperature: {{ page.leaven.fermentation.t_f }} F</li>
+    </ul>
+
+    {% if page.leaven.comments %}
+    <p>{{ page.leaven.comments }}</p>
+    {% endif %}
+</div>
+
+<div>
+<h3>Dough</h3>
+
+    <table>
+    <tr>
+        <th>Ingredient</th>
+        <th>Amount</th>
+        <th>Temp (F)</th>
+    </tr>
+    {% for i in page.dough.ingredients %}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.amount }} {{ i.unit }}</td>
+        <td>{%if i.t_f %}{{ i.t_f }}{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <ul>
+        <li>Autolyze time: {{ page.dough.autolyze }} min</li>
+        <li>Ambient temperature: {{ page.dough.t_f }} F</li>
+    </ul>
+
+    {% if page.dough.comments %}
+    <p>{{ page.dough.comments }}</p>
+    {% endif %}
+</div>
+
+<div>
+    <h3>Bulk Fermentation</h3>
+
+    <ul>
+        <li>Ambient temperature: {{ page.fermentation.t_f }} F</li>
+        <li>Duration: {{ page.fermentation.duration }}</li>
+        <li>Start time: {{ page.fermentation.start_time }}</li>
+        {% if page.fermentation.turn_times %}
+        <li>Turns:</li>
+        <ul>
+        {% for t in page.fermentation.turn_times %}
+            <li>{{ t }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </ul>
+</div>
+
+<div>
+<h3>Proofing</h3>
+
+    <table>
+    <tr>
+        <th>Start Time</th>
+        <th>Temp (F)</th>
+        <th>Duration (min)</th>
+    </tr>
+    {% for s in page.proof.stages %}
+    <tr>
+        <td>{{ s.start_time }}</td>
+        <td>{{ s.t_f }}</td>
+        <td>{{ s.duration }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% if page.proof.comments %}
+    <p>{{ page.proof.comments }}</p>
+    {% endif %}
+</div>
+
+<div>
+    <h3>Bake</h3>
+
+    <p>Baked in {{ page.bake.type }}.</p>
+
+    <table>
+    <tr>
+        <th>Temp (F)</th>
+        <th>Duration (min)</th>
+        <th>Comment</th>
+    </tr>
+    {% for s in page.bake.stages %}
+    <tr>
+        <td>{{ s.t_f }}</td>
+        <td>{{ s.duration }}</td>
+        <td>{{ s.comment }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% if page.bake.comments %}
+    <p>{{ page.bake.comments }}</p>
+    {% endif %}
+</div>
+
+</div>
+
+{{ content }}
