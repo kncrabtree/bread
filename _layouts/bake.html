@@ -92,20 +92,28 @@ layout: post
 
 <div>
     <h3>Bulk Fermentation</h3>
-
+     <table>
+    <tr>
+        <th>Start Time</th>
+        <th>Temp (F)</th>
+        <th>Duration (min)</th>
+    </tr>
+    {% for s in page.fermentation.stages %}
+    <tr>
+        <td>{{ s.start_time }}</td>
+        <td>{{ s.t_f }}</td>
+        <td>{{ s.duration }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    {% if page.fermentation.turn_times %}
+    <p>Turns:</p>
     <ul>
-        <li>Ambient temperature: {{ page.fermentation.t_f }} F</li>
-        <li>Duration: {{ page.fermentation.duration }}</li>
-        <li>Start time: {{ page.fermentation.start_time }}</li>
-        {% if page.fermentation.turn_times %}
-        <li>Turns:</li>
-        <ul>
         {% for t in page.fermentation.turn_times %}
-            <li>{{ t }}</li>
+        <li>{{ t }}</li>
         {% endfor %}
-        </ul>
-        {% endif %}
     </ul>
+    {% endif %}
 </div>
 
 <div>
